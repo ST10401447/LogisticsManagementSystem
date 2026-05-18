@@ -19,7 +19,7 @@
                 <div class="col-md-3">
                     <label class="form-label">Status</label>
                     <select name="status" class="form-select form-select-lg" style="height: 58px;">
-                        <option value="">-- All Statuses --</option>
+                        <option value="">----------- Select Status ----------</option>
                         <option value="Draft" selected="@(ViewBag.CurrentStatus == "Draft")">Draft</option>
                         <option value="Active" selected="@(ViewBag.CurrentStatus == "Active")">Active</option>
                         <option value="OnHold" selected="@(ViewBag.CurrentStatus == "OnHold")">On Hold</option>
@@ -35,7 +35,7 @@
                     <input type="date" name="endDate" class="form-control" value="@ViewBag.CurrentEndDate" />
                 </div>
                 <div class="col-md-3 d-flex gap-2">
-                    <button type="submit" class="btn btn-primary flex-fill">Apply Filter</button>
+                    <button type="submit" class="btn btn-primary flex-fill">Search</button>
                     <a asp-action="Index" class="btn btn-secondary flex-fill">Clear</a>
                 </div>
             </form>
@@ -67,9 +67,7 @@
                                 <td>@item.EndDate.ToString("yyyy-MM-dd")</td>
                                 <td>
                                     <span class="badge fs-6 px-3 py-2
-                                            @(item.Status == "Active" ? "bg-success" :
-                                                                                    item.Status == "Expired" ? "bg-danger" :
-                                                                                    item.Status == "OnHold" ? "bg-warning" : "bg-info")">
+                                            @(item.Status == "Active" ? "bg-success" :item.Status == "Expired" ? "bg-danger" :item.Status == "OnHold" ? "bg-warning" : "bg-info")">
                                     @item.Status
                                 </span>
                             </td>
