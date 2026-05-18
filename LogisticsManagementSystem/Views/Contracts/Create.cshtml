@@ -1,5 +1,4 @@
 ﻿@model LogisticsManagementSystem.Models.Contract
-
 @{
     ViewData["Title"] = "Create New Contract";
 }
@@ -11,14 +10,13 @@
                 <div class="card-header bg-primary text-white py-3">
                     <h3 class="mb-0 text-center">Create New Contract</h3>
                 </div>
-
                 <div class="card-body p-4 pb-5">
                     <form asp-action="Create" enctype="multipart/form-data">
-                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
 
                         <div class="mb-3">
                             <label asp-for="ClientID" class="form-label fw-bold">Client</label>
-                            <select asp-for="ClientID" class="form-select form-select-lg" asp-items="ViewBag.ClientID">
+                            <select asp-for="ClientID" class="form-select" asp-items="ViewBag.ClientID">
                                 <option value="">-- Select Client --</option>
                             </select>
                             <span asp-validation-for="ClientID" class="text-danger"></span>
@@ -41,12 +39,13 @@
                             <div class="col-md-6 mb-3">
                                 <label asp-for="Status" class="form-label fw-bold">Status</label>
                                 <select asp-for="Status" class="form-select">
-                                    <option value="">------------- Select Status ----------- </option>
+                                    <option value="">-- Select Status --</option>
                                     <option value="Draft">Draft</option>
                                     <option value="Active">Active</option>
-                                    <option value="OnHold">On Hold</option>
+                                    <option value="On Hold">On Hold</option>
                                     <option value="Expired">Expired</option>
                                 </select>
+                                <span asp-validation-for="Status" class="text-danger"></span>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label asp-for="ServiceLevel" class="form-label fw-bold">Service Level</label>
@@ -58,7 +57,7 @@
                         <div class="mb-4">
                             <label class="form-label fw-bold">Signed Agreement (PDF)</label>
                             <input type="file" name="SignedAgreement" class="form-control" accept=".pdf" required />
-                            <small class="text-muted">Only .pdf files are allowed (Max 5MB recommended)</small>
+                            <small class="text-muted">Only .pdf files are allowed</small>
                             <span asp-validation-for="SignedAgreement" class="text-danger"></span>
                         </div>
 

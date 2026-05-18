@@ -26,7 +26,7 @@ namespace LogisticsManagementSystem.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        // GET: Contracts/Index + Search/Filter (Already Good)
+        // GET: Contracts (with Search/Filter)
         public async Task<IActionResult> Index(string? status, DateOnly? startDate, DateOnly? endDate)
         {
             var query = _context.Contracts
@@ -70,11 +70,12 @@ namespace LogisticsManagementSystem.Controllers
             return View();
         }
 
-        // -------------------- IMPROVED POST CREATE --------------------
+        // POST: Contracts/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ClientID,StartDate,EndDate,Status,ServiceLevel")] Contract contract, IFormFile? SignedAgreement)
         {
+            // Manual validation for file
             if (SignedAgreement == null || SignedAgreement.Length == 0)
             {
                 ModelState.AddModelError("SignedAgreement", "Signed Agreement PDF is required.");
@@ -91,18 +92,24 @@ namespace LogisticsManagementSystem.Controllers
                 }
             }
 
+            // Additional business validation
+            if (contract.EndDate < contract.StartDate)
+            {
+                ModelState.AddModelError("EndDate", "End Date cannot be earlier than Start Date.");
+            }
+
             if (ModelState.IsValid)
             {
-                // Improved File Upload
+                // File Upload
                 if (SignedAgreement != null)
                 {
                     var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "Uploads", "Contracts");
                     Directory.CreateDirectory(uploadsFolder);
 
                     var fileName = $"{Guid.NewGuid()}{Path.GetExtension(SignedAgreement.FileName)}";
-                    var fullPath = Path.Combine(uploadsFolder, fileName);
+                    var filePath = Path.Combine(uploadsFolder, fileName);
 
-                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         await SignedAgreement.CopyToAsync(stream);
                     }
@@ -115,19 +122,19 @@ namespace LogisticsManagementSystem.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            // Repopulate dropdown if validation fails
             ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "Name", contract.ClientID);
             return View(contract);
         }
 
-        //--------------------DOWNLOAD ACTION --------------------
+        // Download Action
         public async Task<IActionResult> Download(int id)
         {
             var contract = await _context.Contracts.FindAsync(id);
             if (contract == null || string.IsNullOrEmpty(contract.SignedAgreement))
                 return NotFound("File not found.");
 
-            var filePath = Path.Combine(_webHostEnvironment.WebRootPath,
-                contract.SignedAgreement.TrimStart('/'));
+            var filePath = Path.Combine(_webHostEnvironment.WebRootPath, contract.SignedAgreement.TrimStart('/'));
 
             if (!System.IO.File.Exists(filePath))
                 return NotFound("File not found on server.");
@@ -148,10 +155,10 @@ namespace LogisticsManagementSystem.Controllers
             return View(contract);
         }
 
-        // --------------- POST EDIT --------------------
+        // POST: Contracts/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ContractID,ClientID,StartDate,EndDate,Status,ServiceLevel,SignedAgreement")] Contract contract, IFormFile? SignedAgreement)
+        public async Task<IActionResult> Edit(int id, [Bind("ContractID,ClientID,StartDate,EndDate,Status,ServiceLevel")] Contract contract, IFormFile? SignedAgreement)
         {
             if (id != contract.ContractID) return NotFound();
 
@@ -165,9 +172,9 @@ namespace LogisticsManagementSystem.Controllers
                     Directory.CreateDirectory(uploadsFolder);
 
                     var fileName = $"{Guid.NewGuid()}{Path.GetExtension(SignedAgreement.FileName)}";
-                    var fullPath = Path.Combine(uploadsFolder, fileName);
+                    var filePath = Path.Combine(uploadsFolder, fileName);
 
-                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         await SignedAgreement.CopyToAsync(stream);
                     }
@@ -200,7 +207,7 @@ namespace LogisticsManagementSystem.Controllers
             return View(contract);
         }
 
-        // DELETE Actions 
+        // Delete Actions (unchanged)
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
