@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TechMove Logistics</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/LogisticsManagementSystem.styles.css" asp-append-version="true" />
+
+    <style>
+        :root {
+            --primary-orange: #ff8800;
+            --dark-bg: #1e2a44;
+        }
+
+        body {
+            background-color: #f8f9fa;
+        }
+
+        /* ==================== NAVBAR ==================== */
+        .navbar {
+            background-color: var(--dark-bg) !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1030;
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: white !important;
+        }
+
+            .navbar-brand span {
+                color: var(--primary-orange);
+            }
+
+        .nav-link {
+            font-weight: 500;
+            color: #ddd !important;
+            padding: 0.7rem 1.2rem !important;
+            transition: all 0.3s;
+        }
+
+            .nav-link:hover,
+            .nav-link.active {
+                color: var(--primary-orange) !important;
+                background-color: rgba(255, 136, 0, 0.1);
+            }
+
+        /* Active link styling */
+        .navbar-nav .nav-item .active {
+            color: var(--primary-orange) !important;
+            font-weight: 600;
+        }
+
+        /* Make space for fixed navbar */
+        .main-content {
+            margin-top: 90px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <span>Tech</span>Move Logistics
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Clients" asp-action="Index">Clients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" asp-controller="Contracts" asp-action="Index">Contracts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="ServiceRequests" asp-action="Index">Service Requests</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-top footer text-muted py-4 mt-5">
+        <div class="container">
+            <p class="mb-0 text-center">
+                &copy; 2026 TechMove Logistics Management System - All Rights Reserved
+            </p>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

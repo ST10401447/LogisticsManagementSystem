@@ -1,0 +1,1179 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+
+/* Hero Section Styling */
+.hero {
+    margin-top: -70px; /* Overlap navbar slightly for full coverage */
+}
+
+    .hero .overlay {
+        background-color: rgba(0, 0, 0, 0.68);
+    }
+
+    .hero .content {
+        max-width: 900px;
+    }
+
+    .hero h1 {
+        text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    .hero .btn {
+        min-width: 220px;
+    }
+
+
+
+/* contracts.css */
+
+body {
+    background-color: #f8f9fa;
+}
+
+.page-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-top: 20px;
+}
+
+h1 {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+/* ==================== FILTER SECTION ==================== */
+.filter-section {
+    background: #ffffff;
+    padding: 24px 28px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+    margin-bottom: 30px;
+    border: 1px solid #e9ecef;
+}
+
+.filter-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 18px;
+}
+
+.search-input {
+    border-radius: 50px;
+    padding: 12px 20px;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+    .search-input:focus {
+        border-color: #28a745;
+        box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.15);
+        outline: none;
+    }
+
+.form-control {
+    border-radius: 8px;
+    padding: 10px 14px;
+}
+
+.btn-filter {
+    background-color: #28a745;
+    color: white;
+    border-radius: 50px;
+    padding: 11px 28px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.3s;
+}
+
+    .btn-filter:hover {
+        background-color: #218838;
+        transform: translateY(-2px);
+    }
+
+.btn-clear {
+    border-radius: 50px;
+    padding: 11px 24px;
+    font-weight: 500;
+}
+
+/* Table Styling */
+.table {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+    .table thead th {
+        background-color: #2c3e50;
+        color: white;
+        padding: 15px 12px;
+        font-weight: 500;
+        border: none;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8f9fa;
+        transform: scale(1.01);
+        transition: all 0.2s;
+    }
+
+    .table td {
+        vertical-align: middle;
+        padding: 14px 12px;
+    }
+
+.action-links a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+    .action-links a:hover {
+        text-decoration: underline;
+    }
+
+.download-link {
+    color: #28a745;
+    font-weight: 500;
+}
+
+.badge {
+    font-weight: 500;
+}
+
+
+
+/* ============================================= */
+/* CONTRACTS INDEX - MATCHING TECHMOVE LOGISTICS */
+/* Blue, Yellow, Grey & Red Theme */
+/* ============================================= */
+
+.contracts-index {
+    padding: 25px 0;
+}
+
+    /* Page Title */
+    .contracts-index h1 {
+        color: #2c3e50;
+        font-weight: 700;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 4px solid #007bff;
+    }
+
+    /* ==================== FILTER / SEARCH BAR ==================== */
+    .contracts-index .form-inline {
+        background: #f8f9fa;
+        padding: 25px 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        border: 1px solid #dee2e6;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        gap: 20px;
+        align-items: end;
+    }
+
+    .contracts-index .form-group label {
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    /* ==================== BUTTONS ==================== */
+    .contracts-index .btn {
+        padding: 11px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .contracts-index .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+    }
+
+        .contracts-index .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+        }
+
+    .contracts-index .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: white;
+    }
+
+        .contracts-index .btn-secondary:hover {
+            background-color: #545b62;
+            transform: translateY(-2px);
+        }
+
+    /* Create New Button (Yellow - matching homepage) */
+    .contracts-index p > a {
+        background-color: #ffc107;
+        color: #2c3e50;
+        padding: 13px 28px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-block;
+        box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
+        transition: all 0.3s ease;
+        font-size: 1.05rem;
+    }
+
+        .contracts-index p > a:hover {
+            background-color: #e0a800;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 193, 7, 0.5);
+        }
+
+    /* ==================== TABLE ==================== */
+    .contracts-index .table {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.12);
+        border: none;
+    }
+
+        .contracts-index .table thead th {
+            background-color: #2c3e50;
+            color: white;
+            padding: 18px 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.6px;
+        }
+
+        .contracts-index .table tbody tr:hover {
+            background-color: #f1f3f5;
+        }
+
+    /* Action Buttons */
+    .contracts-index td a {
+        padding: 8px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 0.93rem;
+        margin: 3px 2px;
+        color: white;
+        transition: all 0.2s;
+        display: inline-block;
+    }
+
+        .contracts-index td a:nth-child(1) {
+            background: #007bff;
+        }
+        /* Edit - Blue */
+        .contracts-index td a:nth-child(2) {
+            background: #ffc107;
+            color: #2c3e50;
+        }
+        /* Details - Yellow */
+        .contracts-index td a:nth-child(3) {
+            background: #dc3545;
+        }
+    /* Delete - Red */
+
+    /* Download PDF Link */
+    .contracts-index a[href*="Download"] {
+        color: #007bff;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+        .contracts-index a[href*="Download"]:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contracts-index .form-inline {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .contracts-index p > a {
+        display: block;
+        text-align: center;
+    }
+}
+
+
+
+/* ============================================= */
+/* CLEAN PROFESSIONAL CONTRACT EDIT PAGE */
+/* ============================================= */
+
+.contract-edit {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px 15px;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+    .form-header h1 {
+        color: #1e2a44;
+        font-weight: 700;
+    }
+
+    .form-header p {
+        color: #6c757d;
+        font-size: 1.1rem;
+    }
+
+/* Form Card */
+.form-card {
+    background: white;
+    padding: 40px 45px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+}
+
+/* Form Fields */
+.form-group {
+    margin-bottom: 26px;
+}
+
+    .form-group label {
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+.form-control {
+    border-radius: 10px;
+    padding: 14px 16px;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
+    }
+
+/* Buttons */
+.form-buttons {
+    margin-top: 40px;
+    padding-top: 25px;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 13px 32px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.btn-secondary:hover {
+    background-color: #545b62;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .form-card {
+        padding: 30px 20px;
+    }
+}
+
+/* ============================================= */
+/* CONTRACT DETAILS PAGE - PROFESSIONAL STYLE */
+/* ============================================= */
+
+.contract-details {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px 15px;
+}
+
+.details-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+    .details-header h1 {
+        color: #1e2a44;
+        font-weight: 700;
+    }
+
+    .details-header p {
+        color: #6c757d;
+        font-size: 1.1rem;
+    }
+
+/* Main Details Card */
+.details-card {
+    background: white;
+    padding: 40px 45px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+    margin-bottom: 25px;
+}
+
+    .details-card h4 {
+        color: #2c3e50;
+        margin-bottom: 20px;
+    }
+
+    /* Description List Styling */
+    .details-card dl.row {
+        margin: 0;
+    }
+
+    .details-card dt {
+        font-weight: 600;
+        color: #2c3e50;
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+    .details-card dd {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        color: #495057;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+        .details-card dd:last-child {
+            border-bottom: none;
+        }
+
+/* Action Buttons */
+.details-actions {
+    text-align: center;
+    margin-top: 30px;
+}
+
+    .details-actions .btn {
+        padding: 12px 28px;
+        border-radius: 10px;
+        font-weight: 600;
+        margin: 0 8px;
+        transition: all 0.3s;
+    }
+
+    .details-actions .btn-primary {
+        background-color: #007bff;
+    }
+
+        .details-actions .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+    .details-actions .btn-secondary {
+        background-color: #6c757d;
+    }
+
+        .details-actions .btn-secondary:hover {
+            background-color: #545b62;
+        }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .details-card {
+        padding: 30px 20px;
+    }
+
+    .details-actions .btn {
+        margin: 6px 4px;
+        width: 100%;
+        max-width: 220px;
+    }
+}
+
+
+/* ============================================= */
+/* CONTRACT DELETE PAGE - PROFESSIONAL STYLE */
+/* ============================================= */
+
+.contract-delete {
+    max-width: 850px;
+    margin: 40px auto;
+    padding: 20px 15px;
+}
+
+.delete-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+    .delete-header h1 {
+        color: #1e2a44;
+        font-weight: 700;
+    }
+
+    .delete-header h3 {
+        margin: 15px 0;
+        font-weight: 600;
+    }
+
+    .delete-header p {
+        color: #dc3545;
+        font-weight: 500;
+    }
+
+/* Details Card */
+.details-card {
+    background: white;
+    padding: 40px 45px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+    margin-bottom: 30px;
+}
+
+    .details-card h4 {
+        color: #2c3e50;
+        margin-bottom: 20px;
+    }
+
+    /* Description List */
+    .details-card dt {
+        font-weight: 600;
+        color: #2c3e50;
+        padding: 12px 0;
+    }
+
+    .details-card dd {
+        padding: 12px 0;
+        color: #495057;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+        .details-card dd:last-child {
+            border-bottom: none;
+        }
+
+/* Action Buttons */
+.delete-actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+    .delete-actions .btn {
+        padding: 14px 32px;
+        border-radius: 10px;
+        font-weight: 600;
+        margin: 0 10px;
+        transition: all 0.3s;
+    }
+
+    .delete-actions .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .delete-actions .btn-danger:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(220, 53, 69, 0.4);
+        }
+
+    .delete-actions .btn-secondary {
+        background-color: #6c757d;
+    }
+
+        .delete-actions .btn-secondary:hover {
+            background-color: #545b62;
+            transform: translateY(-2px);
+        }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .details-card {
+        padding: 30px 20px;
+    }
+
+    .delete-actions .btn {
+        margin: 8px 5px;
+        width: 100%;
+        max-width: 280px;
+    }
+}
+
+
+/* ============================================= */
+/* WIDE & ATTRACTIVE CREATE CONTRACT PAGE */
+/* ============================================= */
+
+.contract-create {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px 15px;
+}
+
+    .contract-create h1 {
+        color: #1e2a44;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .contract-create h4 {
+        color: #6c757d;
+        font-weight: 500;
+    }
+
+    /* Wider Form Card */
+    .contract-create .col-lg-8 {
+        background: white;
+        padding: 45px 50px;
+        border-radius: 20px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        border: 1px solid #e9ecef;
+    }
+
+    /* Form Fields */
+    .contract-create .form-control {
+        border-radius: 12px;
+        padding: 14px 18px;
+        border: 2px solid #e0e0e0;
+        font-size: 1.02rem;
+        transition: all 0.3s ease;
+    }
+
+        .contract-create .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 5px rgba(0, 123, 255, 0.18);
+            outline: none;
+        }
+
+    .contract-create label {
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+
+    /* Buttons */
+    .contract-create .btn {
+        padding: 14px 35px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1.05rem;
+        transition: all 0.3s;
+    }
+
+    .contract-create .btn-primary {
+        background-color: #007bff;
+    }
+
+        .contract-create .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
+        }
+
+    .contract-create .btn-secondary {
+        background-color: #6c757d;
+    }
+
+        .contract-create .btn-secondary:hover {
+            background-color: #545b62;
+            transform: translateY(-3px);
+        }
+
+/* Responsive */
+@media (max-width: 992px) {
+    .contract-create .col-lg-8 {
+        padding: 35px 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contract-create .col-lg-8 {
+        padding: 30px 20px;
+    }
+}
+
+
+
+/* ============================================= */
+/* TECHMOVE LOGISTICS - PROFESSIONAL BIG COMPANY */
+/* ============================================= */
+
+:root {
+    --primary: #1e2a44;
+    --success: #28a745;
+    --blue: #007bff;
+    --yellow: #ffc107;
+    --danger: #dc3545;
+}
+
+/* ==================== CLIENTS INDEX ==================== */
+.clients-index {
+    max-width: 1550px;
+    margin: 40px auto;
+    padding: 0 30px;
+}
+
+.clients-index h1 {
+    font-size: 2.7rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: -1px;
+    margin-bottom: 1.5rem;
+}
+
+/* Create New Client Button */
+.btn-create {
+    background-color: var(--success) !important;
+    color: white !important;
+    padding: 14px 32px !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    border-radius: 10px !important;
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4) !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-create:hover {
+    background-color: #218838 !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 10px 25px rgba(40, 167, 69, 0.5) !important;
+}
+
+/* Professional Table */
+.professional-table,
+#clientsTable,
+.table {
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15) !important;
+    border: none !important;
+}
+
+.professional-table thead th,
+.table thead th {
+    background-color: var(--primary) !important;
+    color: white !important;
+    padding: 28px 18px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    font-size: 0.8rem !important;
+    letter-spacing: 1px;
+}
+
+.table td {
+    padding: 24px 18px !important;
+    vertical-align: middle;
+    font-size: 1.02rem;
+}
+
+.table tbody tr:hover {
+    background-color: #f0f4fa !important;
+}
+
+/* Action Buttons */
+.action-btn,
+.btn-sm {
+    padding: 10px 26px !important;
+    font-size: 0.97rem !important;
+    font-weight: 500 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12) !important;
+    transition: all 0.3s ease !important;
+    margin-right: 8px !important;
+}
+
+.action-btn:hover,
+.btn-sm:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.22) !important;
+}
+
+/* Button Colors */
+.btn-primary   { background-color: var(--blue)   !important; color: white !important; }
+.btn-warning   { background-color: var(--yellow) !important; color: #212529 !important; font-weight: 600 !important; }
+.btn-danger    { background-color: var(--danger) !important; color: white !important; }
+
+/* Extra Spacing */
+.main-content {
+    padding-top: 20px;
+}
+
+
+
+.clients-edit {
+    max-width: 1600px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+    .clients-edit .card {
+        border-radius: 16px;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+    }
+
+    .clients-edit .card-body {
+        padding: 2.5rem !important;
+    }
+
+    .clients-edit h1 {
+        font-size: 2.6rem;
+        font-weight: 700;
+        color: #1e2a44;
+    }
+
+/* Make form inputs bigger and cleaner */
+.form-control-lg {
+    font-size: 1.1rem;
+    padding: 14px 20px;
+}
+
+
+
+.clients-details {
+    max-width: 1600px;
+    margin: 40px auto;
+    padding: 0 25px;
+}
+
+    .clients-details h1 {
+        font-size: 2.65rem;
+        font-weight: 700;
+        color: #1e2a44;
+    }
+
+    .clients-details .lead {
+        font-size: 1.2rem;
+        color: #555;
+        max-width: 650px;
+        margin: 0 auto;
+    }
+
+    /* Card closer to heading */
+    .clients-details .card {
+        border-radius: 16px;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+        margin-top: 10px;
+    }
+
+    .clients-details .card-body {
+        padding: 2.8rem !important;
+    }
+
+    .clients-details dl.row dt {
+        padding: 10px 0;
+        font-size: 1.05rem;
+    }
+
+    .clients-details dl.row dd {
+        padding: 10px 0;
+        font-size: 1.12rem;
+        font-weight: 500;
+    }
+
+
+
+/* ============================================= */
+/* DELETE PAGE STYLING                           */
+/* ============================================= */
+
+.clients-delete {
+    max-width: 1600px;
+    margin: 40px auto;
+    padding: 0 25px;
+}
+
+    .clients-delete h1 {
+        font-size: 2.65rem;
+        font-weight: 700;
+        color: #1e2a44;
+    }
+
+    .clients-delete .lead {
+        font-size: 1.18rem;
+        color: #555;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .clients-delete .card {
+        border-radius: 16px;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+    }
+
+    .clients-delete .card-header {
+        border-bottom: 1px solid #eee;
+    }
+
+    .clients-delete dl.row dt {
+        padding: 10px 0;
+        font-size: 1.05rem;
+    }
+
+    .clients-delete dl.row dd {
+        padding: 10px 0;
+        font-size: 1.12rem;
+        font-weight: 500;
+    }
+
+    /* Danger Button */
+    .clients-delete .btn-danger {
+        background-color: #dc3545 !important;
+        border: none !important;
+    }
+
+        .clients-delete .btn-danger:hover {
+            background-color: #c82333 !important;
+            transform: translateY(-2px);
+        }
+
+
+
+
+/* CREATE PAGE */
+.clients-create {
+    max-width: 1600px;
+    margin: 40px auto;
+    padding: 0 25px;
+}
+
+    .clients-create h1 {
+        font-size: 2.65rem;
+        font-weight: 700;
+        color: #1e2a44;
+    }
+
+    .clients-create .lead {
+        font-size: 1.18rem;
+        color: #555;
+        max-width: 650px;
+        margin: 0 auto;
+    }
+
+    .clients-create .card {
+        border-radius: 16px;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+    }
+
+    .clients-create .card-body {
+        padding: 2.8rem !important;
+    }
+
+
+/* SERVICE REQUESTS INDEX */
+.service-requests-index {
+    max-width: 1550px;
+    margin: 40px auto;
+    padding: 0 30px;
+}
+
+    .service-requests-index h1 {
+        font-size: 2.65rem;
+        font-weight: 700;
+        color: #1e2a44;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Create New Button */
+    .service-requests-index .btn-create {
+        background-color: #28a745 !important;
+        color: white !important;
+        padding: 12px 28px !important;
+        font-size: 1.08rem !important;
+        font-weight: 600 !important;
+        border-radius: 10px !important;
+        box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4) !important;
+    }
+
+/* Table Styling */
+.professional-table {
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.13) !important;
+}
+
+    .professional-table thead th {
+        background-color: #1e2a44 !important;
+        color: white !important;
+        padding: 22px 16px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase;
+        font-size: 0.82rem;
+    }
+
+    .professional-table td {
+        padding: 20px 16px !important;
+        vertical-align: middle;
+    }
+
+    .professional-table tbody tr:hover {
+        background-color: #f8f9fa !important;
+    }
+
+/* Action Buttons */
+.action-btn {
+    padding: 8px 20px !important;
+    font-size: 0.95rem !important;
+    border-radius: 7px !important;
+}
+
+/* SERVICE REQUEST EDIT PAGE */
+.service-request-edit {
+    max-width: 1600px;
+    margin: 40px auto;
+    padding: 0 25px;
+}
+
+    .service-request-edit h1 {
+        font-size: 2.6rem;
+        font-weight: 700;
+        color: #1e2a44;
+    }
+
+    .service-request-edit .card {
+        border-radius: 16px;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+    }
+
+    .service-request-edit textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+
+/* CLEAN CENTERED CARD - LIKE YOUR SCREENSHOT */
+.clients-details {
+    max-width: 1600px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+    .clients-details h1 {
+        font-size: 2.8rem;
+        font-weight: 700;
+        color: #1e2a44;
+    }
+
+    .clients-details .lead {
+        font-size: 1.2rem;
+        color: #6c757d;
+    }
+
+.details-card {
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+    .details-card .card-header {
+        font-size: 1.35rem;
+        font-weight: 600;
+        color: #1e2a44;
+    }
+
+    .details-card dl.row dt {
+        padding: 14px 0;
+        font-size: 1.05rem;
+        color: #555;
+    }
+
+    .details-card dl.row dd {
+        padding: 14px 0;
+        font-size: 1.08rem;
+        font-weight: 500;
+    }
+
+    .details-card .card-footer {
+        border-top: 1px solid #eee;
+    }
+
+
+/* SERVICE REQUEST DELETE PAGE */
+.service-request-delete {
+    max-width: 1600px;
+    margin: 40px auto;
+    padding: 0 25px;
+}
+
+    .service-request-delete h1 {
+        font-size: 2.65rem;
+        font-weight: 700;
+        color: #1e2a44;
+    }
+
+    .service-request-delete .lead {
+        font-size: 1.2rem;
+        color: #555;
+    }
+
+    .service-request-delete .card {
+        border-radius: 16px;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+    }
+
+    .service-request-delete .btn-danger {
+        background-color: #dc3545 !important;
+    }
+
+
+
+footer {
+    position: relative;
+    margin-top: 80px;
+}
+
+.card-body {
+    margin-bottom: 60px; /* Extra safety against footer overlap */
+}

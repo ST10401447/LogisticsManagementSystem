@@ -1,0 +1,73 @@
+﻿@model LogisticsManagementSystem.Models.Contract
+
+@{
+    ViewData["Title"] = "Create New Contract";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <h3 class="mb-0 text-center">Create New Contract</h3>
+                </div>
+
+                <div class="card-body p-4 pb-5">
+                    <form asp-action="Create" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="ClientID" class="form-label fw-bold">Client</label>
+                            <select asp-for="ClientID" class="form-select form-select-lg" asp-items="ViewBag.ClientID">
+                                <option value="">-- Select Client --</option>
+                            </select>
+                            <span asp-validation-for="ClientID" class="text-danger"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="StartDate" class="form-label fw-bold">Start Date</label>
+                                <input asp-for="StartDate" type="date" class="form-control" />
+                                <span asp-validation-for="StartDate" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="EndDate" class="form-label fw-bold">End Date</label>
+                                <input asp-for="EndDate" type="date" class="form-control" />
+                                <span asp-validation-for="EndDate" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Status" class="form-label fw-bold">Status</label>
+                                <select asp-for="Status" class="form-select">
+                                    <option value="Draft">Draft</option>
+                                    <option value="Active">Active</option>
+                                    <option value="OnHold">On Hold</option>
+                                    <option value="Expired">Expired</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ServiceLevel" class="form-label fw-bold">Service Level</label>
+                                <input asp-for="ServiceLevel" class="form-control" placeholder="e.g. Standard, Premium" />
+                                <span asp-validation-for="ServiceLevel" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Signed Agreement (PDF)</label>
+                            <input type="file" name="SignedAgreement" class="form-control" accept=".pdf" required />
+                            <small class="text-muted">Only .pdf files are allowed (Max 5MB recommended)</small>
+                            <span asp-validation-for="SignedAgreement" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-3 pt-4 border-top">
+                            <a asp-action="Index" class="btn btn-secondary px-4">Cancel</a>
+                            <button type="submit" class="btn btn-primary px-5">Create Contract</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,106 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark position-fixed top-0 start-0 end-0 z-3 bg-dark shadow-sm py-2">
+    <div class="container">
+        <a class="navbar-brand fw-bold" asp-area="" asp-controller="Home" asp-action="Index">
+            TechMove Logistics
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Clients" asp-action="Index">Clients</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" asp-controller="Contracts" asp-action="Index">Contracts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="ServiceRequests" asp-action="Index">Service Requests</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero d-flex align-items-center justify-content-center text-center text-white position-relative"
+         style="min-height: 100vh; overflow: hidden;">
+
+    <!-- Fixed Background Image -->
+    <div style="position: fixed; 
+                top: 0; 
+                left: 0; 
+                width: 100vw; 
+                height: 100vh; 
+                background-image: url('https://images.unsplash.com/photo-1494412651409-8963ce7935a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+                background-size: cover;
+                background-position: center;
+                z-index: 1;">
+    </div>
+
+    <!-- Dark Overlay - Same size as background -->
+    <div style="position: fixed; 
+                top: 0; 
+                left: 0; 
+                width: 100vw; 
+                height: 100vh; 
+                background-color: rgba(0, 0, 0, 0.68); 
+                z-index: 2;">
+    </div>
+
+    <!-- Main Content -->
+    <div class="position-relative z-3 container pt-5 mt-5">
+        <h1 class="display-3 fw-bold mb-3">TechMove Logistics</h1>
+        <p class="lead fs-4 mb-4">Delivering Excellence Across the Globe</p>
+        <p class="fs-5 mb-5">Reliable Freight • Smart Contract Management • Real-time Tracking</p>
+        
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a asp-controller="Contracts" asp-action="Index"
+               class="btn btn-warning btn-lg px-5 py-3 fw-bold">
+                Manage Contracts
+            </a>
+            <a asp-controller="ServiceRequests" asp-action="Index"
+               class="btn btn-outline-light btn-lg px-5 py-3">
+                View Service Requests
+            </a>
+            <a asp-controller="Contracts" asp-action="Create"
+               class="btn btn-success btn-lg px-5 py-3 fw-bold">
+                Create New Contract
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section - Small White Cards -->
+<div class="container my-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="p-5 bg-white shadow rounded-3 h-100 text-center">
+                <h4 class="fw-bold text-primary">Contract Management</h4>
+                <p class="text-muted mt-3">Create, track, and manage client contracts with digital signed agreements and full visibility.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-5 bg-white shadow rounded-3 h-100 text-center">
+                <h4 class="fw-bold text-primary">Service Requests</h4>
+                <p class="text-muted mt-3">Handle service requests efficiently with automated currency conversion and workflow control.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-5 bg-white shadow rounded-3 h-100 text-center">
+                <h4 class="fw-bold text-primary">Secure Document Handling</h4>
+                <p class="text-muted mt-3">Upload, store, and download signed agreements with complete security and audit trail.</p>
+            </div>
+        </div>
+    </div>
+</div>

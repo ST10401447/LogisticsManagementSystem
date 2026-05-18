@@ -1,0 +1,98 @@
+﻿@model LogisticsManagementSystem.Models.Contract
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="contract-edit">
+
+    <div class="form-header">
+        <h1>Edit Contract</h1>
+        <p class="text-muted">Update contract details below</p>
+    </div>
+
+    <div class="form-card">
+        <form asp-action="Edit" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ContractID" />
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="ClientID" class="control-label"></label>
+                        <select asp-for="ClientID" class="form-control" asp-items="ViewBag.ClientID"></select>
+                        <span asp-validation-for="ClientID" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="StartDate" class="control-label"></label>
+                        <input asp-for="StartDate" class="form-control" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="EndDate" class="control-label"></label>
+                        <input asp-for="EndDate" class="form-control" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Status" class="control-label"></label>
+                        <select asp-for="Status" class="form-control">
+                            <option value="Draft">Draft</option>
+                            <option value="Active">Active</option>
+                            <option value="Expired">Expired</option>
+                            <option value="On Hold">On Hold</option>
+                        </select>
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ServiceLevel" class="control-label"></label>
+                        <input asp-for="ServiceLevel" class="form-control" />
+                        <span asp-validation-for="ServiceLevel" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SignedAgreement" class="control-label"></label>
+                <input asp-for="SignedAgreement" class="form-control" />
+                <span asp-validation-for="SignedAgreement" class="text-danger"></span>
+            </div>
+
+            <!-- Current File -->
+            @if (!string.IsNullOrEmpty(Model.SignedAgreement))
+            {
+                <div class="form-group">
+                    <label class="control-label">Current Signed Agreement</label>
+                    <a href="@Url.Action("Download", "Contracts", new { id = Model.ContractID })"
+                       class="btn btn-success btn-sm">
+                        <i class="fas fa-download"></i> Download Current PDF
+                    </a>
+                </div>
+            }
+
+            <!-- New File Upload -->
+            <div class="form-group">
+                <label class="control-label">Replace Signed Agreement (PDF)</label>
+                <input type="file" name="SignedAgreement" class="form-control" accept=".pdf" />
+                <small class="text-muted">Leave empty if you don't want to change the current file.</small>
+            </div>
+
+            <div class="form-buttons">
+                <input type="submit" value="Save Changes" class="btn btn-primary btn-save" />
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
