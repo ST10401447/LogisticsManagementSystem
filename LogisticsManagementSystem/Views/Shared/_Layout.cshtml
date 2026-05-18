@@ -49,6 +49,12 @@
                 background-color: rgba(255, 136, 0, 0.1);
             }
 
+            /* Active link - orange color sticks */
+            .nav-link.active {
+                color: var(--primary-orange) !important;
+                font-weight: 600;
+            }
+
         /* Active link styling */
         .navbar-nav .nav-item .active {
             color: var(--primary-orange) !important;
@@ -83,7 +89,7 @@
                         <a class="nav-link" asp-controller="Clients" asp-action="Index">Clients</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" asp-controller="Contracts" asp-action="Index">Contracts</a>
+                        <a class="nav-link" asp-controller="Contracts" asp-action="Index">Contracts</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="ServiceRequests" asp-action="Index">Service Requests</a>
