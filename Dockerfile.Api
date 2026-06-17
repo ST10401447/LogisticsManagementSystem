@@ -1,0 +1,12 @@
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+WORKDIR /src
+COPY ["LogisticsManagementSystem.Api/LogisticsManagementSystem.Api.csproj", "LogisticsManagementSystem.Api/"]
+RUN dotnet restore "LogisticsManagementSystem.Api/LogisticsManagementSystem.Api.csproj"
+COPY . .
+WORKDIR "/src/LogisticsManagementSystem.Api"
+RUN dotnet publish -c Release -o /app/publish
+
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
+WORKDIR /app
+COPY --from=build /app/publish .
+ENTRYPOINT ["dotnet", "LogisticsManagementSystem.Api.dll"]

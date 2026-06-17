@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace LogisticsManagementSystem.Migrations
+namespace LogisticsManagementSystem.Api.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -37,7 +37,7 @@ namespace LogisticsManagementSystem.Migrations
                     StartDate = table.Column<DateOnly>(type: "date", nullable: false),
                     EndDate = table.Column<DateOnly>(type: "date", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ServiceLevel = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ServiceLevel = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     SignedAgreement = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -58,7 +58,7 @@ namespace LogisticsManagementSystem.Migrations
                     ServiceID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ContractID = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Cost = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },

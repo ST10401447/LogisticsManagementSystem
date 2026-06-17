@@ -1,48 +1,45 @@
-﻿using LogisticsManagementSystem.Data;
-using LogisticsManagementSystem.Models;
+﻿using LogisticsManagementSystem.Models;
 using LogisticsManagementSystem.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.IO;
-using System.Threading.Tasks;
+using System.Net.Http.Json;
 
 namespace LogisticsManagementSystem.Controllers
 {
     public class ContractsController : Controller
     {
-        private readonly LogisticDbContext _context;
         private readonly FileValidationService _fileValidationService;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly HttpClient _httpClient;
 
-        public ContractsController(LogisticDbContext context,
-                                  FileValidationService fileValidationService,
-                                  IWebHostEnvironment webHostEnvironment)
+
+        public ContractsController(
+    IHttpClientFactory httpClientFactory,
+    FileValidationService fileValidationService,
+    IWebHostEnvironment webHostEnvironment)
         {
-            _context = context;
+            _httpClient = new HttpClient();
+            _httpClient.BaseAddress = new Uri("http://logistics-api:8080/api/");
             _fileValidationService = fileValidationService;
             _webHostEnvironment = webHostEnvironment;
         }
 
-        // GET: Contracts (with Search/Filter)
+        // GET: Contracts
         public async Task<IActionResult> Index(string? status, DateOnly? startDate, DateOnly? endDate)
         {
-            var query = _context.Contracts
-                .Include(c => c.Client)
-                .AsQueryable();
+            var response = await _httpClient.GetAsync("contracts");
+            if (!response.IsSuccessStatusCode)
+                return View(new List<Contract>());
+
+            var contracts = await response.Content.ReadFromJsonAsync<List<Contract>>();
 
             if (!string.IsNullOrEmpty(status))
-                query = query.Where(c => c.Status == status);
-
+                contracts = contracts?.Where(c => c.Status == status).ToList();
             if (startDate.HasValue)
-                query = query.Where(c => c.StartDate >= startDate.Value);
-
+                contracts = contracts?.Where(c => c.StartDate >= startDate.Value).ToList();
             if (endDate.HasValue)
-                query = query.Where(c => c.EndDate <= endDate.Value);
-
-            var contracts = await query.ToListAsync();
+                contracts = contracts?.Where(c => c.EndDate <= endDate.Value).ToList();
 
             ViewBag.CurrentStatus = status;
             ViewBag.CurrentStartDate = startDate?.ToString("yyyy-MM-dd");
@@ -55,90 +52,79 @@ namespace LogisticsManagementSystem.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
-
-            var contract = await _context.Contracts
-                .Include(c => c.Client)
-                .FirstOrDefaultAsync(m => m.ContractID == id);
-
-            return contract == null ? NotFound() : View(contract);
+            var response = await _httpClient.GetAsync($"contracts/{id}");
+            if (!response.IsSuccessStatusCode) return NotFound();
+            var contract = await response.Content.ReadFromJsonAsync<Contract>();
+            return View(contract);
         }
 
         // GET: Contracts/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "Name");
+            var clientsResponse = await _httpClient.GetAsync("Clients");
+            var clients = await clientsResponse.Content.ReadFromJsonAsync<List<Client>>() ?? new List<Client>();
+            ViewData["ClientID"] = new SelectList(clients, "ClientID", "Name");
             return View();
         }
 
         // POST: Contracts/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClientID,StartDate,EndDate,Status,ServiceLevel")] Contract contract, IFormFile? SignedAgreement)
+        public async Task<IActionResult> Create(
+            [Bind("ClientID,StartDate,EndDate,Status,ServiceLevel")]
+            Contract contract,
+            IFormFile? SignedAgreement)
         {
-            // Manual validation for file
             if (SignedAgreement == null || SignedAgreement.Length == 0)
-            {
                 ModelState.AddModelError("SignedAgreement", "Signed Agreement PDF is required.");
-            }
             else
             {
-                try
-                {
-                    _fileValidationService.ValidatePdf(SignedAgreement.FileName);
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("SignedAgreement", ex.Message);
-                }
+                try { _fileValidationService.ValidatePdf(SignedAgreement.FileName); }
+                catch (Exception ex) { ModelState.AddModelError("SignedAgreement", ex.Message); }
             }
 
-            // Additional business validation
             if (contract.EndDate < contract.StartDate)
-            {
                 ModelState.AddModelError("EndDate", "End Date cannot be earlier than Start Date.");
-            }
 
             if (ModelState.IsValid)
             {
-                // File Upload
                 if (SignedAgreement != null)
                 {
-                    var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "Uploads", "Contracts");
+                    var uploadsFolder = Path.Combine(
+                        _webHostEnvironment.WebRootPath, "Uploads", "Contracts");
                     Directory.CreateDirectory(uploadsFolder);
-
                     var fileName = $"{Guid.NewGuid()}{Path.GetExtension(SignedAgreement.FileName)}";
                     var filePath = Path.Combine(uploadsFolder, fileName);
-
                     using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
                         await SignedAgreement.CopyToAsync(stream);
-                    }
-
                     contract.SignedAgreement = $"/Uploads/Contracts/{fileName}";
                 }
 
-                _context.Add(contract);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var response = await _httpClient.PostAsJsonAsync("contracts", contract);
+                if (response.IsSuccessStatusCode)
+                    return RedirectToAction(nameof(Index));
+                ModelState.AddModelError("", "Failed to create contract.");
             }
 
-            // Repopulate dropdown if validation fails
-            ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "Name", contract.ClientID);
+            var clientsRes = await _httpClient.GetAsync("Clients");
+            var clients = await clientsRes.Content.ReadFromJsonAsync<List<Client>>() ?? new List<Client>();
+            ViewData["ClientID"] = new SelectList(clients, "ClientID", "Name", contract.ClientID);
             return View(contract);
         }
 
-        // Download Action
+        // DOWNLOAD PDF
         public async Task<IActionResult> Download(int id)
         {
-            var contract = await _context.Contracts.FindAsync(id);
+            var response = await _httpClient.GetAsync($"contracts/{id}");
+            if (!response.IsSuccessStatusCode) return NotFound();
+            var contract = await response.Content.ReadFromJsonAsync<Contract>();
             if (contract == null || string.IsNullOrEmpty(contract.SignedAgreement))
                 return NotFound("File not found.");
-
-            var filePath = Path.Combine(_webHostEnvironment.WebRootPath, contract.SignedAgreement.TrimStart('/'));
-
+            var filePath = Path.Combine(
+                _webHostEnvironment.WebRootPath,
+                contract.SignedAgreement.TrimStart('/'));
             if (!System.IO.File.Exists(filePath))
                 return NotFound("File not found on server.");
-
             var fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
             return File(fileBytes, "application/pdf", "SignedAgreement.pdf");
         }
@@ -147,94 +133,88 @@ namespace LogisticsManagementSystem.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
-
-            var contract = await _context.Contracts.FindAsync(id);
+            var response = await _httpClient.GetAsync($"contracts/{id}");
+            if (!response.IsSuccessStatusCode) return NotFound();
+            var contract = await response.Content.ReadFromJsonAsync<Contract>();
             if (contract == null) return NotFound();
 
-            ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "Name", contract.ClientID);
+            var clientsResponse = await _httpClient.GetAsync("Clients");
+            var clients = await clientsResponse.Content.ReadFromJsonAsync<List<Client>>() ?? new List<Client>();
+            ViewData["ClientID"] = new SelectList(clients, "ClientID", "Name", contract.ClientID);
             return View(contract);
         }
 
         // POST: Contracts/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ContractID,ClientID,StartDate,EndDate,Status,ServiceLevel")] Contract contract, IFormFile? SignedAgreement)
+        public async Task<IActionResult> Edit(
+            int id,
+            [Bind("ContractID,ClientID,StartDate,EndDate,Status,ServiceLevel")]
+            Contract contract,
+            IFormFile? SignedAgreement)
         {
             if (id != contract.ContractID) return NotFound();
+
+            var existingResponse = await _httpClient.GetAsync($"contracts/{id}");
+            if (!existingResponse.IsSuccessStatusCode) return NotFound();
+            var existingContract = await existingResponse.Content.ReadFromJsonAsync<Contract>();
+            if (existingContract == null) return NotFound();
+            contract.SignedAgreement = existingContract.SignedAgreement;
 
             if (SignedAgreement != null && SignedAgreement.Length > 0)
             {
                 try
                 {
                     _fileValidationService.ValidatePdf(SignedAgreement.FileName);
-
-                    var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "Uploads", "Contracts");
+                    var uploadsFolder = Path.Combine(
+                        _webHostEnvironment.WebRootPath, "Uploads", "Contracts");
                     Directory.CreateDirectory(uploadsFolder);
-
                     var fileName = $"{Guid.NewGuid()}{Path.GetExtension(SignedAgreement.FileName)}";
                     var filePath = Path.Combine(uploadsFolder, fileName);
-
                     using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
                         await SignedAgreement.CopyToAsync(stream);
-                    }
-
                     contract.SignedAgreement = $"/Uploads/Contracts/{fileName}";
                 }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("SignedAgreement", ex.Message);
-                }
+                catch (Exception ex) { ModelState.AddModelError("SignedAgreement", ex.Message); }
             }
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(contract);
-                    await _context.SaveChangesAsync();
+                var response = await _httpClient.PutAsJsonAsync(
+                    $"contracts/{contract.ContractID}", contract);
+                if (response.IsSuccessStatusCode)
                     return RedirectToAction(nameof(Index));
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ContractExists(contract.ContractID))
-                        return NotFound();
-                    throw;
-                }
+                ModelState.AddModelError("", "Failed to update contract.");
             }
 
-            ViewData["ClientID"] = new SelectList(_context.Clients, "ClientID", "Name", contract.ClientID);
+            var clientsRes = await _httpClient.GetAsync("Clients");
+            var clientsList = await clientsRes.Content.ReadFromJsonAsync<List<Client>>() ?? new List<Client>();
+            ViewData["ClientID"] = new SelectList(clientsList, "ClientID", "Name", contract.ClientID);
             return View(contract);
         }
 
-        // Delete Actions (unchanged)
+        // GET: Contracts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
-
-            var contract = await _context.Contracts
-                .Include(c => c.Client)
-                .FirstOrDefaultAsync(m => m.ContractID == id);
-
-            return contract == null ? NotFound() : View(contract);
+            var response = await _httpClient.GetAsync($"contracts/{id}");
+            if (!response.IsSuccessStatusCode) return NotFound();
+            var contract = await response.Content.ReadFromJsonAsync<Contract>();
+            return View(contract);
         }
 
+        // POST: Contracts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var contract = await _context.Contracts.FindAsync(id);
-            if (contract != null)
+            var response = await _httpClient.DeleteAsync($"contracts/{id}");
+            if (!response.IsSuccessStatusCode)
             {
-                _context.Contracts.Remove(contract);
-                await _context.SaveChangesAsync();
+                ModelState.AddModelError("", "Failed to delete contract.");
+                return View();
             }
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool ContractExists(int id)
-        {
-            return _context.Contracts.Any(e => e.ContractID == id);
         }
     }
 }

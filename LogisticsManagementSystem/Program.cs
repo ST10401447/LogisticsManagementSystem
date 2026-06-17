@@ -1,4 +1,3 @@
-
 using LogisticsManagementSystem.Data;
 using LogisticsManagementSystem.Services;
 using Microsoft.EntityFrameworkCore;
@@ -11,31 +10,36 @@ namespace LogisticsManagementSystem
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddDbContext<LogisticDbContext>(options =>
-          options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            // FIX: SINGLE NAMED CLIENT USED BY ALL CONTROLLERS
+            builder.Services.AddHttpClient("LogisticsApi", client =>
+            {
+                var apiUrl = builder.Configuration["ApiSettings:BaseUrl"]
+                             ?? "http://localhost:7193/";
+                client.BaseAddress = new Uri(apiUrl);
+            });
 
-            builder.Services.AddHttpClient<CurrencyService>();
-            //Add A service
+            builder.Services.AddDbContext<LogisticDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            // FIX: CURRENCY SERVICE USES SAME NAMED CLIENT NOT ITS OWN
+            builder.Services.AddHttpClient<CurrencyService>("LogisticsApi");
+
+            // FIX: REMOVED bare AddHttpClient() AND SystemApiClient - THEY WERE CREATING DEFAULT CLIENT
             builder.Services.AddScoped<FileValidationService>();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            // FIX: REMOVED UseHttpsRedirection - CAUSES REDIRECT LOOP IN DOCKER
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
